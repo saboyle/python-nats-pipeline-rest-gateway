@@ -22,19 +22,19 @@ correct score grid.
 Input POST /football
 ``` json
 {
-    'game_id': UID, 
-    'home_expected': Float, 
-    'away_expected': Float
+    "game_id": UID, 
+    "home_expected": Float, 
+    "away_expected": Float
 }
 ```
 
 Return (Valid)
 ``` json
 {
-    'game_id': UID, 
-    'home_towin': Float, 
-    'away_towin': Float,
-    'draw': Float
+    "game_id": UID, 
+    "home_towin": Float, 
+    "away_towin": Float,
+    "draw": Float
 }
 Code: 200 - OK
 ```
@@ -42,8 +42,8 @@ Code: 200 - OK
 Return (Invalid)
 ``` json
 {
-    'game_id': UID, 
-    'error': String
+    "game_id": UID, 
+    "error": String
 }
 Code: 400 - Bad Request
 ```
