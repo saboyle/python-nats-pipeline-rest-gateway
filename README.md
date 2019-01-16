@@ -7,11 +7,9 @@ Sample REST gateway implemented using python and NATS.
 **An example gateway to:**
 
 1. Receive REST requests.
-2. Submit to message queue.
-3. Pipeline stage Validates message.
-4. If valid passes message onto second message queue.
-5. If invalid post invalid message onto invalid message queue.
-6. Gateway listens for response and returns to caller.
+2. If valid passes message onto second message queue.
+3. If invalid return invalid json message to caller.
+4. Gateway listens for pipeline response and returns to caller on receipt.
 
 ## Example scenario:
 
