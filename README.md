@@ -18,7 +18,7 @@ The model will be a 'naive' poisson based statistical one with prices being deri
 correct score grid.
 
 Input POST /football
-``` json
+``` 
 {
     "game_id": UID, 
     "home_expected": Float, 
@@ -27,7 +27,7 @@ Input POST /football
 ```
 
 Return (Valid)
-``` json
+``` 
 {
     "game_id": UID, 
     "home_towin": Float, 
@@ -38,7 +38,7 @@ Code: 200 - OK
 ```
 
 Return (Invalid)
-``` json
+``` 
 {
     "game_id": UID, 
     "error": String
