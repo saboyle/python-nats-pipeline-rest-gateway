@@ -26,12 +26,12 @@ async def post(request):
                 data = json.dumps({'error': 'Bad Football Response', 'message': f"{e}"})
                 raise web.HTTPBadRequest(text=data)
 
-        except:
-            data = json.dumps({'error': 'Bad Football Request'})
+        except Exception as e:
+            data = json.dumps({'error': 'Bad Football Request','message': f"{e}"})
             return web.HTTPBadRequest(text=data)
 
-    except:
-        data = json.dumps({'error': 'Invalid JSON in request'})
+    except Exception as e:
+        data = json.dumps({'error': 'Invalid JSON in request','message': f"{e}"})
         raise web.HTTPBadRequest(text=data)
 
 
