@@ -4,16 +4,41 @@ Status: Pre/Alpha / Exploratory
 ## Overview
 Sample REST gateway implemented using python and NATS.
 
-**An example gateway to:**
+The service will be implemented in two forms (basic and gateway)
+
+**Basic functionality:**
 
 1. Receive REST requests.
-2. If valid passes message onto second message queue.
+2. Validate the request (using the schematic library).
+2. If valid perform a calculation.
 3. If invalid return invalid json message to caller.
-4. Gateway listens for pipeline response and returns to caller on receipt.
+
+**Gateway functionality:**
+
+1. Receive REST requests.
+2. Validate the request (using the schematic library).
+3. If valid submit the request onto a work queue.
+4. If invalid return invalid json message to caller.
+5. One or more workers will consume the requests and perform the calculation.
+6. The workers then submit the results to an output queue.
+7. The gateway service listens to the output queue and returns the response.
+
+## Objectives:
+
+* Explore the implementation patterns.
+* Consider the performance, failure and scalability characteristics of the basic REST implementation compared to the
+gateway 'competing consumer' pattern.
+* Generate some rough data for analysis.
+
+## Questions:
+* What are the reliability and performance characterists of the basic REST service?
+* Is the service scalable, if so how can it be scaled?
+* What are the reliability and performance characteristics of the Gateway service?
+* What are the pro's / con's of each and When would you choose one over the other?
 
 ## Example scenario:
 
-A scalable service to produce betting prices for a football game based on expected goals for both teams.
+A scalable service to produce market 100% probabilities for a football game based on expected goals for both teams.
 The model will be a 'naive' poisson based statistical one with prices being derived from SciPy calculated
 correct score grid.
 
@@ -77,7 +102,7 @@ curl --data '{"game_id": "qwertyui", "home_expected": 0.1, "away_expected": 1}' 
 # InValid sample post
 curl --data '{"game_id": "qwertyui", "home_expected": "0.1", "away_expected": -1}'  http://localhost:8080/football
 
-# Benchmarking with apache bench (~1000 requests per second with single process)
+# Benchmarking with apache bench (~1000 requests per second with single process as basic REST service)
 cd test
 ab -c 8 -n 10000 -p ./post_data.json http://localhost:8080/football
 
