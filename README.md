@@ -77,6 +77,10 @@ curl --data '{"game_id": "qwertyui", "home_expected": 0.1, "away_expected": 1}' 
 # InValid sample post
 curl --data '{"game_id": "qwertyui", "home_expected": "0.1", "away_expected": -1}'  http://localhost:8080/football
 
+# Benchmarking with apache bench (~1000 requests per second with single process)
+cd test
+ab -c 8 -n 10000 -p ./post_data.json http://localhost:8080/football
+
 ```
 ## Refs: 
 * https://github.com/aio-libs/aiohttp

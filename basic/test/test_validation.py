@@ -3,7 +3,7 @@ import uuid
 
 import schematics
 
-from basic.schema.football import FootballRequest
+from basic.schema.football import FootballRequest, FootballResponse
 
 
 class TestValidRequests(unittest.TestCase):
@@ -68,3 +68,21 @@ class TestInValidRequests(unittest.TestCase):
         with self.assertRaises(schematics.exceptions.DataError):
             req = FootballRequest({'game_id': 2.6, 'home_expected': 0, 'away_expected': 0})
             req.validate()
+
+
+class TestValidResponse(unittest.TestCase):
+
+    def test_valid1(self):
+        """ Tests that validation of (valid) response works"""
+        resp = FootballResponse({'home': 0.3457458386595667, 'draw': 0.30850832255367105, 'away': 0.3457458386595667,
+                                 'game_id': 'qwertyui'})
+        self.assertEqual(resp.validate(), None)
+
+
+class TestInValidResponse(unittest.TestCase):
+
+    def test_InValid1(self):
+        """ Tests that validation of (invalid) response works"""
+        with self.assertRaises(schematics.exceptions.DataError):
+            resp = FootballResponse({'game': str(uuid.uuid4()), 'home': 0.1, 'away': 0.1, 'draw': 0.8})
+            resp.validate()

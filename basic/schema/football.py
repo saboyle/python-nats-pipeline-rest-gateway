@@ -16,6 +16,7 @@ class FootballRequest(schematics.Model):
 
 class FootballResponse(schematics.Model):
     game_id = schematics.types.StringType(required=True)
-    home_towin = schematics.types.FloatType(required=True)
-    away_towin = schematics.types.FloatType(required=True)
+    home = schematics.types.FloatType(required=True)
+    away = schematics.types.FloatType(required=True)
+    draw = schematics.types.FloatType(required=True)
 
