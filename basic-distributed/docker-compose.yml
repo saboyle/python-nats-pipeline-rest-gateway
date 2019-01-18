@@ -1,0 +1,9 @@
+version: '0.1'
+
+services:
+  rest_worker:
+    image: football-rest
+    ports:
+      - "8080:8080"
+
+
