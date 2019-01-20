@@ -4,6 +4,7 @@ services:
   rest_worker:
     image: football-rest
     ports:
-      - "8080:8080"
+      - 8080:8080
+
 
 
