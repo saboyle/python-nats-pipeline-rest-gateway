@@ -42,7 +42,7 @@ docker service create -p 8080:8080 --name football football-rest
 docker service ls
 
 # Generate some indicative benchmarks (1) ~ 1k rps
-ab -c 8 -n 2000 -p ./post_data.json http://localhost:8080/football
+ab -c 8 -n 2000 -k -p ./post_data.json http://localhost:8080/football
 
 # Scale the service for comparison
 docker service scale football=4
@@ -51,13 +51,13 @@ docker service scale football=4
 docker service ps football
 
 # Recreate benchmarks (2) ~ 3.5k rps
-ab -c 8 -n 2000 -p ./post_data.json http://localhost:8080/football
+ab -c 8 -n 2000 -k -p ./post_data.json http://localhost:8080/football
 
 # Scale the service for comparison
 docker service scale football=8
 
 # Recreate benchmarks (3) ~ 3k rps
-ab -c 8 -n 2000 -p ./post_data.json http://localhost:8080/football
+ab -c 8 -n 2000 -k -p ./post_data.json http://localhost:8080/football
 
 # Stop (Delete) the service from the swarm
 docker service rm football
