@@ -4,7 +4,7 @@ Status: Pre/Alpha / Exploratory
 ## Overview
 Sample REST gateway implemented using python and NATS.
 
-The service will be implemented in two forms (basic and gateway)
+The service will be implemented in three forms (basic, basic-distributed and gateway)
 
 **Basic functionality:**
 
@@ -12,6 +12,10 @@ The service will be implemented in two forms (basic and gateway)
 2. Validate the request (using the schematic library).
 2. If valid perform a calculation and return the result.
 3. If invalid return invalid json message to caller.
+
+**Basic-distributed functionality:**
+
+As 'basic' but with Docker Compose / Swarm containerization.
 
 **Gateway functionality:**
 
