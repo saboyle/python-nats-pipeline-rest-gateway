@@ -15,31 +15,29 @@ async def post(request):
 
     try:
         data = await request.json()
+    except:
+        logger.error("Bad json in request")
+        return web.HTTPBadRequest(text="Bad json in request")
 
-        try:
-            jreq = FootballRequest(data)
-            jreq.validate()
-        except Exception as e:
-            print(e)
-            traceback.print_stack()
-
-            data = json.dumps({'error': 'Bad Football Request', 'message': f"{e}"})
-            return web.HTTPBadRequest(text=data)
-
-        # Handle valid request
-        try:
-            await request.app['state']['nc'].publish_request("markets", new_inbox(), json.dumps(jreq.to_primitive()).encode())
-            ############################################################
-            # ADD CODE TO LISTEN ON REPLY MAILBOX AND RETURN TO GATEWAY
-            ############################################################
-            return web.HTTPOk(body="OK")
-        except ErrTimeout:
-            logger.error("Request timed out")
-            return web.HTTPBadRequest(text="Request timed out")
-
+    try:
+        jreq = FootballRequest(data)
+        jreq.validate()
     except Exception as e:
-        data = json.dumps({'error': 'Invalid JSON in request','message': f"{e}"})
-        raise web.HTTPBadRequest(text=data)
+        print(e)
+        traceback.print_stack()
+
+        data = json.dumps({'error': 'Bad Football Request', 'message': f"{e}"})
+        return web.HTTPBadRequest(text=data)
+
+    # Handle valid request
+    try:
+        reply = await request.app['state']['nc'].request("markets", json.dumps(jreq.to_primitive()).encode(), 0.2)
+        print(reply)
+
+        return web.HTTPOk(body=reply.data)
+    except ErrTimeout:
+        logger.error("Request timed out")
+        return web.HTTPBadRequest(text="Request timed out")
 
 
 async def nats_connection(app):

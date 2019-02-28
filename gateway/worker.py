@@ -8,7 +8,7 @@ import traceback
 from nats.aio.client import Client as NATS
 
 from model.football_poisson import calc_mw
-from schema.football import FootballRequest, FootballResponse
+from schema.football import FootballRequest
 
 
 def calculate(msg):
