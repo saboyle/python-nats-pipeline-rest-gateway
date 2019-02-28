@@ -6,8 +6,7 @@ from nats.aio.client import Client as NATS
 from nats.aio.client import new_inbox
 
 from schema.football import FootballRequest, FootballResponse
-from model.football_poisson import calc_mw
-from nats.aio.errors import ErrConnectionClosed, ErrTimeout, ErrNoServers
+from nats.aio.errors import ErrTimeout
 
 import traceback
 

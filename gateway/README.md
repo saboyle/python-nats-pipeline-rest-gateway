@@ -9,10 +9,11 @@ The gateway has been implemented as two separate Docker services
 1. REST Gateway
 2. Worker (Subscribers)
 
-Docker compose is used to provide a 'service' composed of 1..n Gateways and 1..n Workers.  Using Docker Swarm these 
-can be independently and dynamically scaled.
+Docker compose is used to provide a 'service' composed of 1..n Gateways and 1..n Workers (and a 1..n NATS cluster).  
 
-NATS is used as the fabric transparently connecting the gateway and the worker nodes. 
+Docker Swarm is used to provide dynamic scaling & monitoring of each of the component services.
+
+NATS is used as the fabric to transparent connect the gateway and the worker nodes. 
 
 ## Instructions
 
@@ -30,4 +31,4 @@ NATS is used as the fabric transparently connecting the gateway and the worker n
 
 ## References 
 
-https://github.com/nats-io/asyncio-nats/blob/master/examples/aiohttp-example.py
+1. https://github.com/nats-io/asyncio-nats/blob/master/examples/aiohttp-example.py
