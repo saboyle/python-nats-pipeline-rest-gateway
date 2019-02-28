@@ -29,6 +29,9 @@ NATS is used as the fabric to transparent connect the gateway and the worker nod
 * 2 Gateways + 1 Worker
 * 2 Gateways + 2 Workers
 
+## Notes
+A key point is the use of a single event loop over multiple services within the gateway.  
+
 ## References 
 
 1. https://github.com/nats-io/asyncio-nats/blob/master/examples/aiohttp-example.py

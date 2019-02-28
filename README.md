@@ -99,7 +99,8 @@ pip freeze > requirements.txt
 ## Testing
 
 ``` bash 
-# To post to the running gateway
+# Start NATS
+docker run -p 4222:4222 -p 8222:8222 -p 6222:6222 --name gnatsd -ti nats:latest
 
 # Valid sample post
 curl --data '{"game_id": "qwertyui", "home_expected": 0.1, "away_expected": 1}'  http://localhost:8080/football
@@ -117,5 +118,6 @@ ab -c 8 -n 10000 -k -p ./post_data.json http://localhost:8080/football
 * https://schematics.readthedocs.io/en/latest/
 * https://docs.aiohttp.org/en/stable/index.html
 * https://www.roguelynn.com/words/asyncio-we-did-it-wrong/
+* https://docs.aiohttp.org/en/stable/web_advanced.html#aiohttp-web-app-runners
 * https://www.pinnacle.com/en/betting-articles/Soccer/how-to-calculate-poisson-distribution/MD62MLXUMKMXZ6A8
 * https://medium.com/containers-on-aws/how-i-do-local-docker-development-for-my-aws-fargate-application-8957e3fdb50
