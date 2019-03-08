@@ -10,8 +10,8 @@ The service will be implemented in three forms (basic, basic-distributed and gat
 
 1. Receive REST requests.
 2. Validate the request (using the schematic library).
-2. If valid perform a calculation and return the result.
-3. If invalid return invalid json message to caller.
+3. If valid perform a calculation and return the result.
+4. If invalid return invalid json message to caller.
 
 **Basic-distributed functionality:**
 

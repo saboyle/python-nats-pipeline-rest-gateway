@@ -1,15 +1,17 @@
 from aiohttp import web
 import json
-
 import asyncio
+
 from nats.aio.client import Client as NATS
-from nats.aio.client import new_inbox
 
 from schema.football import FootballRequest, FootballResponse
 from nats.aio.errors import ErrTimeout
 
 import traceback
 
+HOST = 'localhost'
+PORT = 4222
+TIMEOUT = 0.2  # 200ms
 
 async def post(request):
 
@@ -23,7 +25,7 @@ async def post(request):
         jreq = FootballRequest(data)
         jreq.validate()
     except Exception as e:
-        print(e)
+        logger.error(e)
         traceback.print_stack()
 
         data = json.dumps({'error': 'Bad Football Request', 'message': f"{e}"})
@@ -31,8 +33,8 @@ async def post(request):
 
     # Handle valid request
     try:
-        reply = await request.app['state']['nc'].request("markets", json.dumps(jreq.to_primitive()).encode(), 0.2)
-        print(reply)
+        reply = await request.app['state']['nc'].request("markets", json.dumps(jreq.to_primitive()).encode(), TIMEOUT)
+        logger.debug(reply)
 
         return web.HTTPOk(body=reply.data)
     except ErrTimeout:
@@ -43,7 +45,7 @@ async def post(request):
 async def nats_connection(app):
     nc = NATS()
     logger.info("Attempting to connect to nats server")
-    await nc.connect("localhost:4222", loop=asyncio.get_event_loop())
+    await nc.connect(f"{HOST}:{PORT}", loop=asyncio.get_event_loop())
     logger.info('Attached to nats server')
     app['state']['nc'] = nc
 

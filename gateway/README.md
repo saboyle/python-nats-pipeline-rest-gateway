@@ -18,11 +18,11 @@ NATS is used as the fabric to transparent connect the gateway and the worker nod
 ## Instructions
 
 1. Run NATS server
-2a. Start Gateway
-2b. Run wiretap(s) to monitor work queue (optional)
-3. Test using CURL 
+2. Start Gateway
+3. Run wiretap(s) to monitor work queue (optional)
+4. Test using CURL 
 
-## Performance tests
+## Performance tests (suggested)
 
 * 1 Gateway + 1 Worker
 * 1 Gateway + 2 Workers
